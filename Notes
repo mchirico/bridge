@@ -1,0 +1,3 @@
+ng build --prod --outputHashing=all
+
+ng generate component nav/three

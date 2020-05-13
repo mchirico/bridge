@@ -1,0 +1,7 @@
+# You need to run the following for minikube
+sudo minikube tunnel
+minikube tunnel &> /dev/null &
+kubectl expose deployment angular-pod --type=LoadBalancer --name=angular-service
+
+
+

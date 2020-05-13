@@ -1,0 +1,30 @@
+# 
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  imageName: angular  # Replace with the name of the image you want to publish
+
+
+steps:
+- script: |
+    sudo npm install -g @angular/cli
+    sudo npm install
+    sudo npm install -g codecov
+    npm install coveralls
+    ng build --prod
+  displayName: 'npm install and build'
+
+- script: |
+    ng test --watch=false --browsers=ChromeHeadless --code-coverage
+    codecov -t ${CODECOV_TOKEN}
+  env:
+    CODECOV_TOKEN: $(CODECOV_TOKEN)
+  displayName: 'ng test and codecov'
+
+- script: |
+    make
+  displayName: 'Docker build'
+
+

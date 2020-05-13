@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular-pod
+  template:
+    metadata:
+      labels:
+        app: angular-pod
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      imagePullSecrets:
+      - name: gcr-json-key
+      containers:
+      - name: angular-pod
+        image: gcr.io/mchirico/angular:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 124m
+            memory: 64Mi
+          limits:
+            cpu: 700m
+            memory: 128Mi
+        ports:
+        - containerPort: 8080
+          name: angular-pod
